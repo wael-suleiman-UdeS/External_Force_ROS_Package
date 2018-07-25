@@ -1,0 +1,2 @@
+- git: {local-name: humanoid_msgs, uri: 'https://github.com/ahornung/humanoid_msgs'}
+- git: {local-name: nao_robot, uri: 'https://github.com/ros-nao/nao_robot'}

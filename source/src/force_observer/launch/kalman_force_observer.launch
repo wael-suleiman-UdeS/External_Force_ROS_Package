@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="Kalman_Force_Observer" pkg="force_observer" type="kalman_observer_node" output="screen">
+    <rosparam command="load" file="$(find force_observer)/config/ObserverConfig.yaml"/>
+  </node>  
+</launch>

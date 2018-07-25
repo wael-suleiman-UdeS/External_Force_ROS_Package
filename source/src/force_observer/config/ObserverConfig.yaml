@@ -1,0 +1,18 @@
+### Execution Rate ###
+Rate: 60
+
+### Model Parameters
+RobotMass: 5.19
+
+Mean_filter_window:
+  TotalWeight: 1
+  LFCOP: 8
+  RFCOP: 8
+
+# Sensor Variance
+Force_Variance: [800.0, 800.0, 800.0]
+
+Acceleration_Variance: [800.0, 800.0, 800.0]
+
+# Initial Covariance Matrix
+Covariance_Matrix: [100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 100.0]

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<package>
+  <name>force_observer</name>
+  <version>0.0.0</version>
+  <description>The force_observer package</description>
+
+  <!-- One maintainer tag required, multiple allowed, one person per tag --> 
+  <!-- Example:  -->
+  <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
+  <maintainer email="louis@todo.todo">louis</maintainer>
+
+
+  <!-- One license tag required, multiple allowed, one license per tag -->
+  <!-- Commonly used license strings: -->
+  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
+  <license>TODO</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>pluginlib</build_depend>
+  <build_depend>force_observer_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>eigen_conversions</build_depend>
+  <build_depend>cmake_modules</build_depend>
+    <build_depend>filtering</build_depend>
+    <build_depend>ros_cpp</build_depend>
+
+  <run_depend>pluginlib</run_depend>
+  <run_depend>force_observer_msgs</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>std_srvs</run_depend>
+  <run_depend>eigen_conversions</run_depend>
+  <run_depend>cmake_modules</run_depend>
+    <run_depend>filtering</run_depend>
+    <run_depend>ros_cpp</run_depend>
+    
+  <test_depend>rosunit</test_depend>
+
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>
