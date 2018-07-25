@@ -1,4 +1,4 @@
-#Experimental data accompanying the paper: "Kalman Filter Based Observer for an External Force Applied to Medium-sized Humanoid Robots", submitted to IROS 2018
+#Experimental data accompanying the paper: "Kalman Filter Based Observer for an External Force Applied to Medium-sized Humanoid Robots", to appear in IROS 2018
 
 To run the force observer under MATLAB:
 
