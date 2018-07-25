@@ -51,7 +51,7 @@ Third-Party : Necessary third party packages.
 
 ## Usage
 
-Launch the kalman force observer
+Launch the kalman force observer  
     roslaunch force_observer kalman_force_observer.launch
 
 Reset the observer state by calling "/Reset_observer" service  
