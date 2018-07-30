@@ -43,7 +43,7 @@ Build the project (in folder "source"):
 
 ## Project Structure
 	
-force_observer : A kalman-based force observer for humanoid robot.
+force_observer : A kalman-based force observer for humanoid robots.
 
 force_observer_msgs : Messages required by the kalman-based force observer.
 
