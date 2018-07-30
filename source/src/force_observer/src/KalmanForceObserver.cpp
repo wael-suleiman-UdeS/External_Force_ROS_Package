@@ -10,7 +10,7 @@
 #include <KalmanForceObserver.h>
 
 KalmanForceObserver::KalmanForceObserver() :
-    _reset(false), _forceOffset(0), _robot_mass(5.1)
+    _reset(false), _forceOffset(1), _robot_mass(5.19)
 {
   _TotalWeight_mean_filter = boost::shared_ptr<mean_filter<double> >(new mean_filter<double>);
   _LFCOP_mean_filter = boost::shared_ptr<mean_filter<double> >(new mean_filter<double>);
@@ -27,6 +27,8 @@ KalmanForceObserver::KalmanForceObserver() :
   _ACCoffset(0) = 0;
   _ACCoffset(1) = 0;
   _ACCoffset(2) = 0;
+  
+  _offsetTemp.resize(8);
 }
 
 void KalmanForceObserver::Init(KalmanForceObserver_ini ini, KalmanForceObserver_par par)
@@ -35,6 +37,8 @@ void KalmanForceObserver::Init(KalmanForceObserver_ini ini, KalmanForceObserver_
   _LFCOP_mean_filter->set_window(par.LFCOP_mean_filter_window);
   _RFCOP_mean_filter->set_window(par.RFCOP_mean_filter_window);
   _schmitt_trig->set_threshold(par.Schmitt_negative_threshold, par.Schmitt_positive_threshold);
+  _initialResetCounter = par.Reset_mean_filter_window;
+  _resetCounter = _initialResetCounter - 1;
   _robot_mass = ini.robot_mass;
 
   // Initialize our filters
@@ -54,6 +58,8 @@ void KalmanForceObserver::Init(KalmanForceObserver_ini ini, KalmanForceObserver_
   FilterY_ini.acc_variance = ini.acc_variance[1];
   FilterY_ini.Period = ini.period;
   FilterY_ini.mass = ini.robot_mass;
+  
+  _forceOffset = ini.robot_mass * GRAV;
 
   double *P0 = &ini.P0[0];
 
@@ -179,15 +185,53 @@ void KalmanForceObserver::update_TorsoState(const std::vector<double> LLeg_state
 
 void KalmanForceObserver::reset_observer()
 {
-  _reset = false;
-  _forceOffset = _robot_mass - (_TotalWeight[0] + _TotalWeight[1]);
-  _ZMPoffset(0) = _ZMP(0);
-  _ZMPoffset(1) = _ZMP(1);
-  _Xkoffset(0) = _Xk(0);
-  _Xkoffset(1) = _Xk(1);
-  _ACCoffset(0) = _ACC(0);
-  _ACCoffset(1) = _ACC(1);
-  _ACCoffset(2) = _ACC(2);
+  if(_resetCounter == _initialResetCounter - 1)
+  {
+      _resetCounter--;
+      _offsetTemp.at(0) = _TotalWeight[0] + _TotalWeight[1];
+      _offsetTemp.at(1) = _ZMP(0);
+      _offsetTemp.at(2) = _ZMP(1);
+      _offsetTemp.at(3) = _Xk(0);
+      _offsetTemp.at(4) = _Xk(1);
+      _offsetTemp.at(5) = _ACC(0);
+      _offsetTemp.at(6) = _ACC(1);
+      _offsetTemp.at(7) = _ACC(2);
+  }
+  else if(_resetCounter>0)
+  {
+      _resetCounter--;
+      _offsetTemp.at(0) += _TotalWeight[0] + _TotalWeight[1];
+      _offsetTemp.at(1) += _ZMP(0);
+      _offsetTemp.at(2) += _ZMP(1);
+      _offsetTemp.at(3) += _Xk(0);
+      _offsetTemp.at(4) += _Xk(1);
+      _offsetTemp.at(5) += _ACC(0);
+      _offsetTemp.at(6) += _ACC(1);
+      _offsetTemp.at(7) += _ACC(2);
+      /*
+      _forceOffset += _TotalWeight[0] + _TotalWeight[1];
+      _ZMPoffset(0) += _ZMP(0);
+      _ZMPoffset(1) += _ZMP(1);
+      _Xkoffset(0) += _Xk(0);
+      _Xkoffset(1) += _Xk(1);
+      _ACCoffset(0) += _ACC(0);
+      _ACCoffset(1) += _ACC(1);
+      _ACCoffset(2) += _ACC(2);
+      */
+  }
+  else
+  {
+    _resetCounter = _initialResetCounter - 1;
+    _reset = false;
+    _forceOffset  = (_offsetTemp.at(0) + _TotalWeight[0] + _TotalWeight[1]) / _initialResetCounter;
+    _ZMPoffset(0) = (_offsetTemp.at(1) + _ZMP(0)) / _initialResetCounter;
+    _ZMPoffset(1) = (_offsetTemp.at(2) + _ZMP(1)) / _initialResetCounter;
+    _Xkoffset(0)  = (_offsetTemp.at(3) + _Xk(0)) / _initialResetCounter;
+    _Xkoffset(1)  = (_offsetTemp.at(4) + _Xk(1)) / _initialResetCounter;
+    _ACCoffset(0) = (_offsetTemp.at(5) + _ACC(0)) / _initialResetCounter;
+    _ACCoffset(1) = (_offsetTemp.at(6) + _ACC(1)) / _initialResetCounter;
+    _ACCoffset(2) = (_offsetTemp.at(7) + _ACC(2)) / _initialResetCounter;
+  }
 }
 
 inline bool KalmanForceObserver::is_Init()
@@ -213,8 +257,16 @@ void KalmanForceObserver::RunfilterZ()
   // Filter Z first
   M.push_back(double(_Xk(2)));
   M.push_back(double(_ACC(2) - _ACCoffset(2)));
-  double f_o = -(_forceOffset + (_TotalWeight[0] + _TotalWeight[1])) * GRAV + _robot_mass * GRAV;
-  M.push_back(f_o);
+  double f_o;
+  if(_forceOffset > 0.0)
+  {
+      f_o = (-(_TotalWeight[0] + _TotalWeight[1]) * _robot_mass * GRAV) / _forceOffset; //-(_forceOffset + (_TotalWeight[0] + _TotalWeight[1])) * GRAV + _robot_mass * GRAV;
+      M.push_back(f_o + _robot_mass * GRAV);
+  }
+  else
+  {
+      M.push_back(0.0);
+  }
   _Filt_z->Run(input, M);
   _ForceEstimation(2) = _Filt_z->getForceEstimate();
 

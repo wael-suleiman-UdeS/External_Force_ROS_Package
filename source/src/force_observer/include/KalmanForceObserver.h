@@ -53,6 +53,8 @@ struct KalmanForceObserver_par
   int RFCOP_mean_filter_window;
 
   int TotalWeight_mean_filter_window;
+  
+  int Reset_mean_filter_window;
 
   double Schmitt_positive_threshold;
 
@@ -197,6 +199,11 @@ private:
   Eigen::Vector3d _CoM_POS;
   Eigen::Vector3d _ACC, _ACCoffset;
   Eigen::Vector3d _ForceEstimation;
+  
+  std::vector<double> _offsetTemp;
+  
+  int _resetCounter;
+  int _initialResetCounter;
 
   boost::shared_ptr<schmitt_trigger<format> > _schmitt_trig;
 

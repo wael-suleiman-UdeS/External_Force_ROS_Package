@@ -6,8 +6,9 @@ RobotMass: 5.19
 
 Mean_filter_window:
   TotalWeight: 1
-  LFCOP: 8
-  RFCOP: 8
+  LFCOP: 1
+  RFCOP: 1
+  Reset: 100
 
 # Sensor Variance
 Force_Variance: [800.0, 800.0, 800.0]

@@ -17,6 +17,7 @@ KalmanForceObserverNode::KalmanForceObserverNode():_init(false)
   nh_private.getParam("Mean_filter_window/TotalWeight", par.TotalWeight_mean_filter_window);
   nh_private.getParam("Mean_filter_window/LFCOP", par.LFCOP_mean_filter_window);
   nh_private.getParam("Mean_filter_window/RFCOP", par.RFCOP_mean_filter_window);
+  nh_private.getParam("Mean_filter_window/Reset", par.Reset_mean_filter_window);
   nh_private.getParam("Force_Variance", ini.F_variance);
   nh_private.getParam("Acceleration_Variance", ini.acc_variance);
   nh_private.getParam("Covariance_Matrix", ini.P0);
@@ -24,7 +25,7 @@ KalmanForceObserverNode::KalmanForceObserverNode():_init(false)
   double Rate;
   nh_private.param<double>("Kalman_Rate", _rate, 60);
   ini.period = 1 / _rate;
-  nh_private.param<double>("RobotMass", ini.robot_mass, 4.5);
+  nh_private.param<double>("RobotMass", ini.robot_mass, 5.19);
   par.Schmitt_negative_threshold = -2;
   par.Schmitt_positive_threshold = 2;
 
