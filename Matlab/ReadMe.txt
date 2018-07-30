@@ -14,5 +14,5 @@ or
     iii)- The ZMP=[ZMPx, ZMPy] in "ZMP.mat"
     iv)- The acceleration [ddx,ddy,ddz] in "Acc.mat"
 
-3)- In each folder, load all the datas (i.e. load('Acc.mat')) then run the MATLAB command:
+3)- In each folder, load all data (i.e. load('Acc.mat')) then run the MATLAB command:
 Kalman_filter_force_observer
