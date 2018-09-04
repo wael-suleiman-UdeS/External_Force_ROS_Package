@@ -5,7 +5,7 @@ GNU GENERAL PUBLIC LICENSE Version 2
 
 If you use this package, we would appreciate that you cite the following paper:  
 @conference{Hawley:2018ij,  
-Author = {Louis Hawley and Wael Suleiman},  
+Author = {Louis Hawley, Rémy Rahem and Wael Suleiman},  
 Booktitle = {To appear in IEEE International Conference on Intelligent Robots and Systems},  
 Date-Added = {2018-03-26 00:39:31 +0000},  
 Date-Modified = {2018-07-09 15:28:50 +0000},  
