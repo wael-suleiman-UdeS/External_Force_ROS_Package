@@ -34,3 +34,12 @@ load([Path 'CoM_Pos.mat']);
 load([Path 'total_force.mat']);
 load([Path 'ZMP.mat']);
 run('Kalman_Humanoid_Force_Observer/Kalman_filter_force_observer.m');
+
+%% Experiment #4 : Force along x axis while walking
+test_id = 'Experiment #4 - ';
+Path = 'Force_Walk/';
+load([Path 'Acc.mat']);
+load([Path 'CoM_Pos.mat']);
+load([Path 'total_force.mat']);
+load([Path 'ZMP.mat']);
+run('Kalman_Humanoid_Force_Observer/Kalman_filter_force_observer.m');
