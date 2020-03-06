@@ -4,13 +4,18 @@ GNU GENERAL PUBLIC LICENSE Version 2
 ## Reference
 
 If you use this package, we would appreciate that you cite the following paper:  
-@conference{Hawley:2018ij,  
-Author = {Louis Hawley, Rémy Rahem and Wael Suleiman},  
-Booktitle = {To appear in IEEE International Conference on Intelligent Robots and Systems},  
-Date-Added = {2018-03-26 00:39:31 +0000},  
-Date-Modified = {2018-07-09 15:28:50 +0000},  
-Title = {Kalman Filter Based Observer for an External Force Applied to Medium-sized Humanoid Robots},  
-Year = {2018}}
+
+@article{Hawley:2019yg,
+	Author = {Louis Hawley and R{\'e}my Rahem and Wael Suleiman},
+	Date-Added = {2020-03-02 12:21:01 -0500},
+	Date-Modified = {2020-03-02 12:23:30 -0500},
+	Journal = {International Journal of Humanoid Robotics},
+	Number = {06},
+	Pages = {1-25},
+	Title = {External Force Observer for Small- and Medium-Sized Humanoid Robots},
+	Volume = {16},
+	Year = {2019}}
+
 
 ## Summary
 
