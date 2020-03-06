@@ -7,8 +7,6 @@ If you use this package, we would appreciate that you cite the following paper:
 
 @article{Hawley:2019yg,
 	Author = {Louis Hawley and R{\'e}my Rahem and Wael Suleiman},
-	Date-Added = {2020-03-02 12:21:01 -0500},
-	Date-Modified = {2020-03-02 12:23:30 -0500},
 	Journal = {International Journal of Humanoid Robotics},
 	Number = {06},
 	Pages = {1-25},
